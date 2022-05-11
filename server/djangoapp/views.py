@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
+from django.urls import reverse
+from django.views import generic
 # from .restapis import related methods
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -13,9 +15,19 @@ import json
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
+def index(request):
+    if request.method == 'GET':
+        return render(request, "djangoapp/index.html")
 
 # Create your views here.
 
+def about(request):
+    if request.method == 'GET':
+        return render(request, "djangoapp/about.html")
+
+def contact(request):
+    if request.method == 'GET':
+        return render(request, "djangoapp/contact.html")
 
 # Create an `about` view to render a static about page
 # def about(request):
