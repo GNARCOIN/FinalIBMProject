@@ -1,11 +1,11 @@
   applications:
   - name: Module10ProjectApp22
     routes:
-      - route: 09ujvn289819c8h234.mybluemix.net
+      - route: proj345ect.mybluemix.net
     memory: 128M
     buildpack: python_buildpack
   - name: Module10ProjectApp22-nginx
     routes:
-      - route: 09ujvn289819c8h234.mybluemix.net/static
+      - route: proj345ect.mybluemix.net/static
     memory: 128M
     buildpack: staticfile_buildpack
