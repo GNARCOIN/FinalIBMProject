@@ -22,3 +22,7 @@ function getDbs(cloudant) {
         });
     }).catch((err) => { console.log(err); });
 }
+
+app.get('/products/:productId', [
+    ProductsController.getById
+]);
