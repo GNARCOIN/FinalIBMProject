@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<!-- Navigation bar -->
+    <nav>
+        <div>
+            <div>
+                <a href="{% url 'djangoapp:index' %}">Home</a>
+                <a href="{% url 'djangoapp:about' %}">About</a>
+                <a href="{% url 'djangoapp:contact' %}">Contact</a>
+            </div>
+            <ul>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="#">{{ user.first_name }}({{ user.username }})</a>
+                    <a href="{% url 'djangoapp:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <form action="{% url 'djangoapp:login' %}" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <input type="text" placeholder="Username" name="username">
+                            <input type="password" placeholder="Password" name="psw">
+                            <button type="submit">Login</button>
+                            <a href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                        </div>
+                    </form>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Registration form -->
+    <form action="{% url 'djangoapp:registration' %}" method="post">
+        <div>
+            {% csrf_token %}
+            <h1>Sign Up</h1>
+            <hr>
+            <div>
+                <label for="username"><b>User Name</b></label>
+                <input type="text" placeholder="Enter User Name: " name="username" required>
+                <label for="firstname"><b>First Name</b></label>
+                <input type="text" placeholder="Enter First Name: " name="firstname" required>
+                <label for="lastname"><b>Last Name</b></label>
+                <input type="text" placeholder="Enter Last Name: " name="lastname" required>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password: " name="psw" required>
+                {% if message %}
+                <div>
+                    {{ message }}
+                </div>
+                {% endif %}
+                <button type="submit">Sign up</button>
+            </div>
+        </div>
+    </form>
+</body>
