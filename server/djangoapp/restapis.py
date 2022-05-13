@@ -9,15 +9,14 @@ import time
  
 
 def analyze_review_sentiments(text):
-    url = "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/e9cf117d-4cf6-40df-ac58-7c43b602839f"
-    api_key = "dpPjzoKlkcqjL723aG5j5E8dLogKttjrnmSEi1B43zBA"
+    url = "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/27759d5f-2e4f-4b7d-a466-5c0b3a0ea33e"
+    api_key = "ONvFdDMXCt1WQkOOx-0Oaw0pMz5xTKaFPIusHL108sUA"
     authenticator = IAMAuthenticator(api_key)
     natural_language_understanding = NaturalLanguageUnderstandingV1(version='2021-08-01',authenticator=authenticator)
     natural_language_understanding.set_service_url(url)
     response = natural_language_understanding.analyze( text=text+"hello hello hello",features=Features(sentiment=SentimentOptions(targets=[text+"hello hello hello"]))).get_result()
     label=json.dumps(response, indent=2)
     label = response['sentiment']['document']['label']
-    
     
     return(label)
 
@@ -51,7 +50,6 @@ def get_dealer_by_id_from_cf(url, id):
     if json_result:
         dealers = json_result["body"]
         
-    
         dealer_doc = dealers["docs"][0]
         dealer_obj = CarDealer(address=dealer_doc["address"], city=dealer_doc["city"],
                                 full_name=dealer_doc["full_name"], id=dealer_doc["id"], lat=dealer_doc["lat"], long=dealer_doc["long"],
