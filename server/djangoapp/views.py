@@ -12,14 +12,11 @@ from datetime import datetime
 import logging
 import json
 
-# Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 def index(request):
     if request.method == 'GET':
         return render(request, "djangoapp/index.html")
-
-# Create your views here.
 
 def about(request):
     if request.method == 'GET':
@@ -34,7 +31,6 @@ def registration_request(request):
     if request.method == 'GET':
         return render(request, 'djangoapp/user_registration_bootstrap.html', context)
     elif request.method == 'POST':
-        # Check if user exists
         username = request.POST['username']
         password = request.POST['psw']
         first_name = request.POST['firstname']
@@ -54,7 +50,6 @@ def registration_request(request):
             context['message'] = "User already exists."
             return render(request, 'djangoapp/user_registration_bootstrap.html', context)
 
-
 def login_request(request):
     context = {}
     if request.method == "POST":
@@ -70,12 +65,10 @@ def login_request(request):
     else:
         return render(request, 'djangoapp/user_login_bootstrap.html', context)
 
-
 def logout_request(request):
     logout(request)
     return redirect('djangoapp:index')
 
-# Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     if request.method == "GET":
         context = {}
@@ -104,7 +97,6 @@ def add_review(request, id):
     dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
     context["dealer"] = dealer
     if request.method == 'GET':
-        # Get cars for the dealer
         cars = CarModel.objects.all()
         print(cars)
         context["cars"] = cars
