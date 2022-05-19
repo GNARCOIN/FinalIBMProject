@@ -80,11 +80,11 @@ def get_dealerships(request):
 def get_dealer_details(request, id):
     if request.method == "GET":
         context = {}
-        dealer_url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/post_reviews"
+        dealer_url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/dealerships"
         dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
         context["dealer"] = dealer
     
-        review_url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/dealerships"
+        review_url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/post_reviews"
         reviews = get_dealer_reviews(review_url, id=id)
         print(reviews)
         context["reviews"] = reviews
