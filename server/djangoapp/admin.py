@@ -8,11 +8,11 @@ class CarModelInline(admin.StackedInline):
 
 # CarModelAdmin class
 class CarModelAdmin(admin.ModelAdmin):
-    list_display=["make", "name", "id", "type", "year"]  
+    list_display=("make", "name", "id", "type", "year")
 
 # CarMakeAdmin class with CarModelInline
 class CarMakeAdmin(admin.ModelAdmin):
-    list_display=["name", "description"]
+    list_display=("name", "description")
     inlines=[CarModelInline]
 
 # Register models here
