@@ -72,7 +72,7 @@ def logout_request(request):
 def get_dealerships(request):
     if request.method == "GET":
         context = {}
-        url = "https://proj345ect.mybluemix.net/api/dealerships"
+        url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/dealerships"
         dealerships = get_dealers_from_cf(url)
         context["dealership_list"] = dealerships
         return render(request, 'djangoapp/index.html', context)
@@ -80,11 +80,11 @@ def get_dealerships(request):
 def get_dealer_details(request, id):
     if request.method == "GET":
         context = {}
-        dealer_url = "https://proj345ect.mybluemix.net/api/dealerships"
+        dealer_url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/post_reviews"
         dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
         context["dealer"] = dealer
     
-        review_url = "https://proj345ect.mybluemix.net/api/getreviews"
+        review_url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/dealerships"
         reviews = get_dealer_reviews(review_url, id=id)
         print(reviews)
         context["reviews"] = reviews
@@ -93,7 +93,7 @@ def get_dealer_details(request, id):
 
 def add_review(request, id):
     context = {}
-    dealer_url = "https://proj345ect.mybluemix.net/api/dealerships"
+    dealer_url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/dealerships"
     dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
     context["dealer"] = dealer
     if request.method == 'GET':
