@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import CarModel, CarMake, CarDealer, DealerReview, ReviewPost
-from .restapis import get_dealers_from_cf, get_dealer_by_id_from_cf, get_dealer_reviews_from_cf, post_request
+from .restapis import get_dealers_from_cf, get_dealer_by_id_from_cf, get_dealer_reviews_from_cf, post_request, get_request
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth import login, logout, authenticate
@@ -72,7 +72,7 @@ def logout_request(request):
 def get_dealerships(request):
     if request.method == "GET":
         context = {}
-        url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/dealerships"
+        url = "https://63c95ca9.us-south.apigw.appdomain.cloud/api/dealerships"
         dealerships = get_dealers_from_cf(url)
         context["dealership_list"] = dealerships
         return render(request, 'djangoapp/index.html', context)
@@ -80,11 +80,11 @@ def get_dealerships(request):
 def get_dealer_details(request, id):
     if request.method == "GET":
         context = {}
-        dealer_url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/dealerships"
+        dealer_url = "https://63c95ca9.us-south.apigw.appdomain.cloud/api/dealerships"
         dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
         context["dealer"] = dealer
     
-        review_url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/post_reviews"
+        review_url = "https://63c95ca9.us-south.apigw.appdomain.cloud/api/reviews"
         reviews = get_dealer_reviews(review_url, id=id)
         print(reviews)
         context["reviews"] = reviews
@@ -93,7 +93,7 @@ def get_dealer_details(request, id):
 
 def add_review(request, id):
     context = {}
-    dealer_url = "https://f52d1acb.us-south.apigw.appdomain.cloud/finalprojv2/dealerships"
+    dealer_url = "https://63c95ca9.us-south.apigw.appdomain.cloud/api/dealerships"
     dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
     context["dealer"] = dealer
     if request.method == 'GET':
@@ -125,6 +125,6 @@ def add_review(request, id):
 
             new_payload = {}
             new_payload["review"] = payload
-            review_post_url = "https://proj345ect.mybluemix.net/api/postreviews"
+            review_post_url = "https://63c95ca9.us-south.apigw.appdomain.cloud/api/reviews"
             post_request(review_post_url, new_payload, id=id)
         return redirect("djangoapp:dealer_details", id=id)
