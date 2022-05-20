@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dealership Review</title>
+    <link href="./style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -14,26 +15,26 @@
 
 <body>
     <nav>
-        <div>
-            <div>
-                <a href="{% url 'djangoapp:index' %}">Home</a>
-                <a href="{% url 'djangoapp:about' %}">About</a>
-                <a href="{% url 'djangoapp:contact' %}">Contact</a>
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="btn btn-link" href="{% url 'djangoapp:index' %}">Home</a>
+                <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About</a>
+                <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact</a>
             </div>
-            <ul>
+            <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="#">{{ user.first_name }}({{ user.username }})</a>
-                    <a href="{% url 'djangoapp:logout' %}">Logout</a>
+                    <p style="text-align:right;"> <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                    <a class="btn btn-link" href="{% url 'djangoapp:logout'%}">Logout</a></p>
                 </li>
                 {% else %}
-                <form action="{% url 'djangoapp:login' %}" method="post">
+                    <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
                     {% csrf_token %}
-                    <div>
-                        <input type="text" placeholder="Username" name="username" >
-                        <input type="password" placeholder="Password" name="psw" >
-                        <button type="submit">Login</button>
-                        <a href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                    <div class="input-group">
+                        <input type="text" placeholder="Username" name="username"  class="form-control">
+                        <input type="password" placeholder="Password" name="psw"  class="form-control">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
                     </div>
                 </form>
                 {% endif %}
@@ -64,7 +65,6 @@
              <tbody>
                 {% for dealer in dealership_list %}
                     <tr>
-                        
                         <td>{{dealer.id}}</td>
                         <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
                         <td>{{dealer.city}}</td>
